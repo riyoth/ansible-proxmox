@@ -1,0 +1,15 @@
+---
+
+- name: create pve repo file
+  template: src=pve-install-repo.list.j2 dest=/etc/apt/sources.list.d/pve-install-repo.list
+
+- name: Add the Proxmox apt key
+  apt_key:
+    url: http://download.proxmox.com/debian/key.asc
+    state: present
+
+- name: Update the host with the new repo
+  apt:
+    upgrade: dist
+    update_cache: yes
+    force: yes
