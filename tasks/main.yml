@@ -3,5 +3,5 @@
   include: hosts.yml
 - name: Add Proxmox repo
   include: repo.yml
-#- name: Install Proxmox package
-#  include: install.yml
+- name: Install Proxmox package
+  include: install.yml

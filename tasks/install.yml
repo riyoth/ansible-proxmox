@@ -1,0 +1,36 @@
+---
+
+- name: Install proxmox-ve
+  apt:
+    name: proxmox-ve
+    state: present
+
+- name: Install  ssh
+  apt:
+    name: ssh
+    state: present
+
+- name: Install postfix
+  apt:
+    name: postfix
+    state: present
+
+- name: Install ksm-control-daemon
+  apt:
+    name: ksm-control-daemon
+    state: present
+
+- name: Install open-iscsi
+  apt:
+    name: open-iscsi
+    state: present
+
+- name: Install systemd-sysv
+  apt:
+    name: systemd-sysv
+    state: present
+
+- name: Remove os-prober
+  apt:
+    name: os-prober
+    state: absent
