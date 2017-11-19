@@ -1,0 +1,9 @@
+---
+
+- name: Install Openvswitch
+  apt:
+    name: openvswitch-switch
+    state: present
+
+- name: create interfaces configuration
+  template: src=interfaces.j2 dest=/etc/network/interfaces

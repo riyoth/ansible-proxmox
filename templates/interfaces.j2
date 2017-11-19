@@ -1,0 +1,29 @@
+#loopback
+auto lo
+iface lo inet loopback
+
+#Create the OVS bridge and link the interace
+auto vmbr0
+allow-ovs vmbr0
+iface vmbr0 inet manual
+  ovs_type OVSBridge
+  ovs_ports eth0 {% for item in proxmox_ovs_vlan %}  vlan{{item}} {% endfor %}
+
+# Configuration for the physical iterface
+auto eth0
+allow-vmbr0 eth0
+iface eth0 inet manual
+  ovs_bridge vmbr0
+  ovs_type OVSPort
+  ovs_options tag={{ proxmox_ovs_management_vlan }} vlan_mode=native-untagged
+
+allow-vmbr0 vlan{{ proxmox_ovs_management_vlan }}
+iface vlan{{ proxmox_ovs_management_vlan }} inet static
+  ovs_type OVSIntPort
+  ovs_bridge vmbr0
+  ovs_options tag={{ proxmox_ovs_management_vlan }}
+  ovs_extra set interface ${IFACE} external-ids:iface-id=$(hostname -s)-${IFACE}-vif
+  address {{ ansible_default_ipv4.address }}
+  netmask {{ ansible_default_ipv4.netmask }}
+  gateway {{ ansible_default_ipv4.gateway }}
+  mtu 1500
