@@ -7,3 +7,5 @@
   include: install.yml
 - name: Configure Openvswitch
   include: openvswitch.yml
+- name: Configure Apparmor
+  include: apparmor.yml

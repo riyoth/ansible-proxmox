@@ -1,0 +1,6 @@
+---
+
+- name: Allow nfs from LXC container
+  template: src=lxc-default-cgns.j2 dest=/etc/apparmor.d/lxc/lxc-default-cgns
+  notify:
+    - restart apparmor
